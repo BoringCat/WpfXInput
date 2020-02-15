@@ -1,0 +1,270 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfXInput"
+        xmlns:XInput="clr-namespace:SharpDX.XInput;assembly=SharpDX.XInput" x:Class="WpfXInput.MainWindow"
+        mc:Ignorable="d"
+        Title="XInputShow" Height="450" Width="908">
+    <Window.Resources>
+        <Color x:Key="Color_Down">Gray</Color>
+        <Color x:Key="Color_UP">White</Color>
+        <SolidColorBrush x:Key="Brush_Down" Color="{DynamicResource Color_Down}"/>
+        <SolidColorBrush x:Key="Brush_UP" Color="{DynamicResource Color_UP}"/>
+        <PathGeometry x:Key="B_Button">
+            <PathFigure StartPoint="4,4" IsClosed="True">
+                <LineSegment Point="121,4"/>
+                <ArcSegment Point="124,6"/>
+                <LineSegment Point="124,60"/>
+                <ArcSegment Point="121,60"/>
+                <LineSegment Point="54,60"/>
+                <ArcSegment Size="40,44" Point="6,24" SweepDirection="Clockwise" RotationAngle="-74"/>
+            </PathFigure>
+        </PathGeometry>
+        <PathGeometry x:Key="Arrow_Button">
+            <PathFigure StartPoint="32,2" IsClosed="True">
+                <LineSegment Point="56,32"/>
+                <LineSegment Point="42,32"/>
+                <LineSegment Point="42,62"/>
+                <LineSegment Point="22,62"/>
+                <LineSegment Point="22,32"/>
+                <LineSegment Point="8,32"/>
+            </PathFigure>
+        </PathGeometry>
+        <PathGeometry x:Key="Trigger_Button">
+            <PathFigure StartPoint="9,3" IsClosed="True">
+                <LineSegment Point="37.5,3"/>
+                <ArcSegment Point="82.5,90" Size="40.5,88.5" SweepDirection="Clockwise" />
+                <ArcSegment Point="78,94.5" Size="6,6" SweepDirection="Clockwise" />
+                <LineSegment Point="7.5,94.5"/>
+                <ArcSegment Point="4.5,90" Size="6,6" SweepDirection="Clockwise" />
+                <ArcSegment Point="4.5,13.5" Size="58.5,88.5" />
+                <ArcSegment Point="9,3" Size="10,10" SweepDirection="Clockwise" />
+            </PathFigure>
+        </PathGeometry>
+    </Window.Resources>
+    <Grid Background="Magenta">
+        <WrapPanel>
+            <Grid x:Name="ButtonA" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64" Height="64" Margin="6,2,6,2">
+                <Ellipse Fill="{DynamicResource Brush_UP}"/>
+                <Ellipse x:Name="ButtonA_Back" StrokeThickness="4" Stroke="Black">
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="#FF00D430" Opacity="0.6"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Label Content="A" FontFamily="Consolas" FontWeight="Bold" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+            </Grid>
+            <Grid x:Name="ButtonB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64" Height="64" Margin="6,2,6,2">
+                <Ellipse Fill="{DynamicResource Brush_UP}"/>
+                <Ellipse x:Name="ButtonB_Back" StrokeThickness="4" Stroke="Black">
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="#FFD40000" Opacity="0.6"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Label Content="B" FontFamily="Consolas" FontWeight="Bold" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+            </Grid>
+            <Grid x:Name="ButtonX" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64" Height="64" Margin="6,2,6,2">
+                <Ellipse Fill="{DynamicResource Brush_UP}"/>
+                <Ellipse x:Name="ButtonX_Back" StrokeThickness="4" Stroke="Black">
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="#FF0087D4" Opacity="0.6"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Label Content="X" FontFamily="Consolas" FontWeight="Bold" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+            </Grid>
+            <Grid x:Name="ButtonY" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64" Height="64" Margin="6,2,6,2">
+                <Ellipse Fill="{DynamicResource Brush_UP}"/>
+                <Ellipse x:Name="ButtonY_Back" StrokeThickness="4" Stroke="Black">
+                    <Ellipse.Fill>
+                        <SolidColorBrush Color="#FFD4C100" Opacity="0.6"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <Label Content="Y" FontFamily="Consolas" FontWeight="Bold" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+            </Grid>
+            <Grid x:Name="ButtonUP" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64" Height="64" Margin="6,2,6,2">
+                <Path Data="{DynamicResource Arrow_Button}" Fill="{DynamicResource Brush_UP}"/>
+                <Path x:Name="ButtonUP_Back" Data="{DynamicResource Arrow_Button}" Fill="{DynamicResource Brush_Down}"/>
+                <Path Data="{DynamicResource Arrow_Button}" Stroke="Black" StrokeThickness="5"/>
+            </Grid>
+            <Grid x:Name="ButtonDown" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64" Height="64" Margin="6,2,6,2">
+                <Path Data="{DynamicResource Arrow_Button}" Fill="{DynamicResource Brush_UP}" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="180"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path x:Name="ButtonDown_Back" Data="{DynamicResource Arrow_Button}" RenderTransformOrigin="0.5,0.5" Fill="{DynamicResource Brush_Down}">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="180"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path Data="{DynamicResource Arrow_Button}" Stroke="Black" StrokeThickness="5" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="180"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+            </Grid>
+            <Grid x:Name="ButtonLeft" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64" Height="64" Margin="6,2,6,2">
+                <Path Data="{DynamicResource Arrow_Button}" Fill="{DynamicResource Brush_UP}" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="270"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path x:Name="ButtonLeft_Back" Data="{DynamicResource Arrow_Button}" RenderTransformOrigin="0.5,0.5" Fill="{DynamicResource Brush_Down}">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="270"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path Data="{DynamicResource Arrow_Button}" Stroke="Black" StrokeThickness="5" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="270"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+            </Grid>
+            <Grid x:Name="ButtonRight" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64" Height="64" Margin="6,2,6,2">
+                <Path Data="{DynamicResource Arrow_Button}" Fill="{DynamicResource Brush_UP}" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="90"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path x:Name="ButtonRight_Back" Data="{DynamicResource Arrow_Button}" RenderTransformOrigin="0.5,0.5" Fill="{DynamicResource Brush_Down}">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="90"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path Data="{DynamicResource Arrow_Button}" Stroke="Black" StrokeThickness="5" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="90"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+            </Grid>
+            <Grid x:Name="ButtonLB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Height="64" Margin="6,2,6,2">
+                <Path Data="{DynamicResource B_Button}" Fill="{DynamicResource Brush_UP}"/>
+                <Path x:Name="ButtonLB_Back" Data="{DynamicResource B_Button}" Fill="{DynamicResource Brush_Down}"/>
+                <Path Data="{DynamicResource B_Button}" Stroke="Black" StrokeThickness="4"/>
+                <Label Content="LB" FontFamily="Consolas" FontWeight="Bold" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" Margin="12,-4,0,0"/>
+            </Grid>
+            <Grid x:Name="ButtonRB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Height="64" Margin="6,2,6,2">
+                <Path Data="{DynamicResource B_Button}" Fill="{DynamicResource Brush_UP}" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path x:Name="ButtonRB_Back" Data="{DynamicResource B_Button}" Fill="{DynamicResource Brush_Down}" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path Data="{DynamicResource B_Button}" Stroke="Black" StrokeThickness="4" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Label Content="RB" FontFamily="Consolas" FontWeight="Bold" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" Margin="-12,-4,0,0"/>
+            </Grid>
+            <Grid x:Name="ButtonLT" HorizontalAlignment="Left" VerticalAlignment="Top" Width="84" Height="96" Margin="6,2,6,2">
+                <Path Data="{DynamicResource Trigger_Button}" Fill="{DynamicResource Brush_UP}" />
+                <Path x:Name="ButtonLT_Back" Data="{DynamicResource Trigger_Button}">
+                    <Path.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="{DynamicResource Color_Down}" Offset="1.01"/>
+                            <GradientStop Offset="-0.01"/>
+                            <GradientStop x:Name="LT_Trigger" Offset="1"/>
+                            <GradientStop Color="{DynamicResource Color_Down}" Offset="{Binding Offset, ElementName=LT_Trigger}"/>
+                        </LinearGradientBrush>
+                    </Path.Fill>
+                </Path>
+                <Path Data="{DynamicResource Trigger_Button}" Stroke="Black" StrokeThickness="4"/>
+                <Label Content="LT" FontFamily="Consolas" FontWeight="Bold" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" Margin="0"/>
+            </Grid>
+            <Grid x:Name="ButtonRT" HorizontalAlignment="Left" VerticalAlignment="Top" Width="84" Height="96" Margin="6,2,6,2">
+                <Path Data="{DynamicResource Trigger_Button}" Fill="{DynamicResource Brush_UP}" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path x:Name="ButtonRT_Back" Data="{DynamicResource Trigger_Button}" RenderTransformOrigin="0.5,0.5">
+                    <Path.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="{DynamicResource Color_Down}" Offset="1.01"/>
+                            <GradientStop Offset="-0.01"/>
+                            <GradientStop x:Name="RT_Trigger" Offset="1"/>
+                            <GradientStop Color="{DynamicResource Color_Down}" Offset="{Binding Offset, ElementName=RT_Trigger}"/>
+                        </LinearGradientBrush>
+                    </Path.Fill>
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Path Data="{DynamicResource Trigger_Button}" Stroke="Black" StrokeThickness="4" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
+                <Label Content="RT" FontFamily="Consolas" FontWeight="Bold" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+            </Grid>
+            <local:UserThumb x:Name="pointl" Height="250" Width="250" StrokeThickness="4" PointSize="65" Margin="8" UseBackStyle="Ellipse"/>
+            <local:UserThumb x:Name="pointr" Height="250" Width="250" StrokeThickness="4" PointSize="65" Margin="8" UseBackStyle="Ellipse"/>
+            <Grid x:Name="ButtonBack" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Height="64" Margin="6,2,6,2">
+                <Path Data="{Binding Data, ElementName=ButtonStart_Back}" Fill="{DynamicResource Brush_UP}"/>
+                <Path x:Name="ButtonBack_Back" Data="{Binding Data, ElementName=ButtonStart_Back}" Fill="{DynamicResource Brush_Down}"/>
+                <Path Data="{Binding Data, ElementName=ButtonStart_Back}" Stroke="Black" StrokeThickness="5"/>
+                <Label Content="Back" FontFamily="Consolas" FontWeight="Bold" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+            </Grid>
+            <Grid x:Name="ButtonStart" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Height="64" Margin="6,2,6,2">
+                <Path Data="{Binding Data, ElementName=ButtonStart_Back}" Fill="{DynamicResource Brush_UP}"/>
+                <Path x:Name="ButtonStart_Back" Data="M33,4L150,4A1,1,0,0,1,150,60L33,60A1,1,0,0,1,33,4z" Fill="{DynamicResource Brush_Down}"/>
+                <Path Data="{Binding Data, ElementName=ButtonStart_Back}" Stroke="Black" StrokeThickness="5"/>
+                <Label Content="Start" FontFamily="Consolas" FontWeight="Bold" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+            </Grid>
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Height="64" Margin="6,2,6,2">
+                <Path Data="{Binding Data, ElementName=Connect}" Fill="{DynamicResource Brush_UP}"/>
+                <Path Data="{Binding Data, ElementName=Connect}">
+                    <Path.Fill>
+                        <SolidColorBrush Color="Red" Opacity="0.6"/>
+                    </Path.Fill>
+                </Path>
+                <Path x:Name="Connect" Data="M33,4L190,4A1,1,0,0,1,190,60L33,60A1,1,0,0,1,33,4z" Fill="#FF36C943"/>
+                <Path Data="{Binding Data, ElementName=Connect}" Stroke="Black" StrokeThickness="5"/>
+                <Label Content="Connect" FontFamily="Consolas" FontWeight="Bold" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+            </Grid>
+            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" FontSize="16" SelectedIndex="0" Margin="8,12,0,0" SelectionChanged="ComboBox_SelectionChanged">
+                <XInput:UserIndex>One</XInput:UserIndex>
+                <XInput:UserIndex>Two</XInput:UserIndex>
+                <XInput:UserIndex>Three</XInput:UserIndex>
+                <XInput:UserIndex>Four</XInput:UserIndex>
+                <XInput:UserIndex>Any</XInput:UserIndex>
+            </ComboBox>
+        </WrapPanel>
+    </Grid>
+</Window>

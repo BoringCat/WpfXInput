@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="WpfXInput.UserThumb"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfXInput"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="450">
+    <Grid x:Name="Main">
+        <Rectangle x:Name="Back" Stroke="Black" StrokeThickness="10" Margin="107.5"/>
+        <Ellipse x:Name="BackR" Stroke="{Binding Stroke, ElementName=Back}" StrokeThickness="{Binding StrokeThickness, ElementName=Back}" Margin="{Binding Margin, ElementName=Back}" Opacity="{Binding Opacity, ElementName=Back}" />
+        <Grid x:Name="Thumb" Height="235" Width="235" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Ellipse StrokeThickness="10"  Fill="#FF0080FF"/>
+            <Ellipse x:Name="point" StrokeThickness="0" Fill="#FF00264B" HorizontalAlignment="Center" VerticalAlignment="Center" Width="4.5" Height="4.5" Stroke="Black"/>
+            <Ellipse x:Name="down" StrokeThickness="0" Fill="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding Width, ElementName=point}" Height="{Binding Height, ElementName=point}" Visibility="Hidden"/>
+        </Grid>
+        <Ellipse Stroke="{Binding Stroke, ElementName=Back}" StrokeThickness="{Binding StrokeThickness, ElementName=Back}" Margin="{Binding Margin, ElementName=Back}" Opacity="0.4" />
+    </Grid>
+</UserControl>
